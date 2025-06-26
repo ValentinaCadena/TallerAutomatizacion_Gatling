@@ -16,15 +16,20 @@ class AddContactTest extends Simulation{
   // 2 Scenario Definition
   val scn = scenario("Add Contact").
     exec(http("addContact")
-      .get(s"addContacts")
-      .body(StringBody(s"""{"firstName": "Valentina", "lastName": "Cadena"}""")).asJson
+      .post(s"addContacts")
+      .body(StringBody(
+        s"""{
+        "firstName": "Valentina",
+        "lastName": "Cadena",
+        "email": "valentina${System.currentTimeMillis()}@mail.com"
+        }""")).asJson
        //Validar status 200 del servicio
-      .check(status.is(200))
+      .check(status.is(201))
       .check(jsonPath("$._id").exists)
     )
 
   // 3 Load Scenario
   setUp(
-    scn.inject(rampUsersPerSec(5).to(15).during(30))
+    scn.inject(rampUsersPerSec(10).to(150).during(30))
   ).protocols(httpConf);
 }
