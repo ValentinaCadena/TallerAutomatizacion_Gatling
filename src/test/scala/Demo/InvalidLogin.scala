@@ -16,7 +16,7 @@ class InvalidLoginTest extends Simulation{
   val scn = scenario("Invalid Login").
     exec(http("login")
       .get(s"users/login")
-      .body(StringBody(s"""{"email": "$wrongemail@email.com", "password": "$wrongpassword"}""")).asJson
+      .body(StringBody(s"""{"email": "wrongemail@email.com", "password": "wrongpassword"}""")).asJson
        //Validar status 200 del servicio
       .check(status.is(401))
       .check(bodyString.is("Incorrect username or password"))
