@@ -3,13 +3,12 @@ package Demo
 import io.gatling.core.Predef._
 import io.gatling.http.Predef._
 import Demo.Data._
-import Demo.LoginTest._
 
 class ContactsTest extends Simulation {
 
   val httpConf = http.baseUrl(url)
     .acceptHeader("application/json")
-    .header("Authorization", "Bearer " + authToken)
+    .header("Authorization", s"Bearer $authToken")
     .check(status.is(200))
 
   val scn = scenario("Contacts")
