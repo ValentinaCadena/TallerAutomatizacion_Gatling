@@ -20,7 +20,7 @@ class AddContactTest extends Simulation{
       .body(StringBody(s"""{"firstName": "Valentina", "lastName": "Cadena"}""")).asJson
        //Validar status 200 del servicio
       .check(status.is(200))
-      .check(jsonPath().saveAs("newContact"))
+      .check(jsonPath("$._id").exists)
     )
 
   // 3 Load Scenario
